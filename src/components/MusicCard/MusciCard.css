@@ -1,0 +1,19 @@
+.backroundImg{
+    position: relative;
+    width: 275px;
+    height: 275px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+}
+.title-genre{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
