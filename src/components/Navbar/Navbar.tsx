@@ -1,25 +1,7 @@
 // import { NavLink } from "react-router-dom"
-import { useEffect } from "react";
-import { useSearchPlaylistsByGenre } from "../../hooks/useMusic";
-import "./Navbar.scss";
+import "./Navbar.css";
 
 const Navbar = () => {
-  const { playlists, searchPlaylists} =useSearchPlaylistsByGenre("Rock");
-  useEffect(() => {
-    searchPlaylists();
-    console.log("playlist",playlists)
-  }, [searchPlaylists]);
-
-  useEffect(() => {
-    console.log("playlist", playlists);
-    
-    if (playlists) {
-      console.log("Playlists trovate:", playlists.playlists.items.length);
-      console.log("Dettagli prima playlist:", playlists.playlists.items[0]);
-    }
-  }, [playlists]); 
-
-
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="navbar-brand navbar-logo"></div>

@@ -11,6 +11,12 @@ export interface MusicCategory {
   icons: Icon[]; // Array di immagini associate alla categoria
 }
 
+export interface MusicTabProps {
+  id: string; 
+  name: string; // Nome item
+  image: string; // Immagine
+}
+
 export interface Icon {
   url: string; // URL dell'immagine
 }

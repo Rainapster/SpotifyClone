@@ -3,9 +3,11 @@ import getSpotifyToken from "../utils/spotifyAuth";
 import {
   type MusicCategory,
   type SpotifyCategoriesResponse,
+  type SpotifyPlaylist,
   type SpotifyPlaylistSearchResponse,
 } from "../models/music.model";
 
+//tutte le categorie di musica
 export const useMusicCategories = () => {
   const [genres, setGenres] = useState<MusicCategory[]>();
   const retriveMusicGenre = useCallback(async () => {
@@ -32,11 +34,12 @@ export const useMusicCategories = () => {
   return { retriveMusicGenre, genres };
 };
 
-export const useSearchPlaylistsByGenre = (genre: string) => {
+// cerco le playlist tramite il nome della categoria
+export const useSearchPlaylistsByGenre = () => {
   const [playlists, setPlaylists] =
-    useState<SpotifyPlaylistSearchResponse | null>(null);
+    useState<SpotifyPlaylist[] | null>(null);
 
-  const searchPlaylists = useCallback(async () => {
+  const searchPlaylists = useCallback(async (genre: string) => {
     try {
       const token = await getSpotifyToken();
       const result = await fetch(
@@ -55,11 +58,11 @@ export const useSearchPlaylistsByGenre = (genre: string) => {
       }
 
       const data: SpotifyPlaylistSearchResponse = await result.json();
-      setPlaylists(data);
+      setPlaylists(data.playlists.items);
     } catch (error) {
       console.error("Errore durante la ricerca delle playlist:", error);
     }
-  }, [genre]);
+  }, []);
 
   return {
     playlists,
