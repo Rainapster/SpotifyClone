@@ -70,3 +70,64 @@ export interface SpotifyUser {
   uri: string;
   display_name: string | null;
 }
+//da qui iniziano le interfacce per le tracce
+// Interfaccia per un singolo artista
+export interface SpotifyArtist {
+  id: string;
+  name: string;
+  type: string;
+  uri: string;
+  href: string;
+}
+
+// Interfaccia per l'album
+export interface SpotifyAlbum {
+  id: string;
+  name: string;
+  images: Icon[];
+  release_date: string;
+  total_tracks: number;
+  type: string;
+}
+
+// Interfaccia per una singola traccia
+export interface SpotifyTrackItem {
+  id: string;
+  name: string;
+  artists: SpotifyArtist[];
+  album: SpotifyAlbum;
+  duration_ms: number;
+  explicit: boolean;
+  popularity: number;
+  preview_url: string | null;
+  track_number: number;
+  type: string;
+  uri: string;
+}
+
+// Interfaccia per l'item della playlist (contiene la traccia e metadati)
+export interface SpotifyPlaylistTrack {
+  added_at: string;
+  added_by: {
+    id: string;
+    type: string;
+    uri: string;
+  };
+  is_local: boolean;
+  primary_color: string | null;
+  track: SpotifyTrackItem;
+  video_thumbnail: {
+    url: string | null;
+  };
+}
+
+// Interfaccia per la risposta completa delle tracce di una playlist
+export interface SpotifyPlaylistTracksResponse {
+  href: string;
+  items: SpotifyPlaylistTrack[];
+  limit: number;
+  next: string | null;
+  offset: number;
+  previous: string | null;
+  total: number;
+}

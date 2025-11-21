@@ -4,6 +4,7 @@ import "./App.css";
 import Layout from "./components/Layout/Layout";
 import Home from "./pages/Home/Home";
 import Playlists from "./pages/Playlists/Playlists";
+import PlaylistDetail from "./components/PlaylistDetail/PlaylistDetail";
 function App() {
   return (
     <BrowserRouter>
@@ -13,7 +14,8 @@ function App() {
           <Route path="home" element={<Home />} />
           <Route path="playlists" element={<Playlists />} />
           {/* Rotta dinamica per le playlist specifiche */}
-          <Route path=":playlistName" element={<Playlists/>}/>
+          <Route path=":playlistName" element={<Playlists />} />
+          <Route path="playlist/:playlistId" element={<PlaylistDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>

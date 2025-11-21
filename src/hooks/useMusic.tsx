@@ -1,10 +1,12 @@
 import { useCallback, useState } from "react";
 import getSpotifyToken from "../utils/spotifyAuth";
 import {
+  type SpotifyPlaylistTrack,
   type MusicCategory,
   type SpotifyCategoriesResponse,
   type SpotifyPlaylist,
   type SpotifyPlaylistSearchResponse,
+  type SpotifyPlaylistTracksResponse,
 } from "../models/music.model";
 
 //tutte le categorie di musica
@@ -36,8 +38,7 @@ export const useMusicCategories = () => {
 
 // cerco le playlist tramite il nome della categoria
 export const useSearchPlaylistsByGenre = () => {
-  const [playlists, setPlaylists] =
-    useState<SpotifyPlaylist[] | null>(null);
+  const [playlists, setPlaylists] = useState<SpotifyPlaylist[] | null>(null);
 
   const searchPlaylists = useCallback(async (genre: string) => {
     try {
@@ -68,4 +69,30 @@ export const useSearchPlaylistsByGenre = () => {
     playlists,
     searchPlaylists,
   };
+};
+
+// hook per recuperare le tracce dalla playlist
+
+export const usePlaylistTracks = () => {
+  const [tracks, setTracks] = useState<SpotifyPlaylistTrack[]>([]);
+
+  const retriveTrackFromPlaylist = useCallback(async (playlistId: string) => {
+    try {
+      const token = await getSpotifyToken();
+      const result = await fetch(
+        `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data: SpotifyPlaylistTracksResponse = await result.json();
+      console.log("tracks data", data);
+      setTracks(data.items);
+    } catch (error) {
+      console.log("errore durante il recupero delle tracce: ", error);
+    }
+  }, []);
+  return { retriveTrackFromPlaylist, tracks };
 };

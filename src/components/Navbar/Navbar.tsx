@@ -1,14 +1,16 @@
 // import { NavLink } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
+const navigate = useNavigate()
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="navbar-brand navbar-logo"></div>
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item active">
-            <img
+            <img onClick={()=>navigate(`home`)}
               src="/house-regular-full.svg"
               alt="home"
               style={{
