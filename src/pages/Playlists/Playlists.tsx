@@ -3,13 +3,15 @@ import {
   useSearchPlaylistsByGenre,
 } from "../../hooks/useMusic";
 import MusicSquareTabs from "../../components/MusicSquareTabs/MusicSquareTabs";
+import { useParams } from "react-router-dom";
 
 const Playlists = () => {
-const genreName = 'Latina';
-  const { searchPlaylists, playlists } = useSearchPlaylistsByGenre();
+    const { playlistName } = useParams<{ playlistName?: string }>();
+    const genreName = playlistName;
+    const { searchPlaylists, playlists } = useSearchPlaylistsByGenre();
 
   useEffect(() => {
-    searchPlaylists(genreName);
+    searchPlaylists(genreName ?? "");
   }, [genreName, searchPlaylists]);
 
   const mappedMusicItems = useMemo(() => {

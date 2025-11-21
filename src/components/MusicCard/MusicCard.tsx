@@ -1,8 +1,8 @@
 import "./MusciCard.css";
 import type { MusicCardWithProps } from "./MusicaCard.model";
-const MusicCard = ({ name, iconsSrc }: MusicCardWithProps) => {
+const MusicCard = ({ name, iconsSrc, onClick }: MusicCardWithProps) => {
   return (
-    <div className="container-card">
+    <div className="container-card" onClick={onClick}>
       <div
         className="backroundImg"
         style={{ backgroundImage: `url(${iconsSrc})` }}

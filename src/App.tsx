@@ -12,6 +12,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
           <Route path="playlists" element={<Playlists />} />
+          {/* Rotta dinamica per le playlist specifiche */}
+          <Route path=":playlistName" element={<Playlists/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
