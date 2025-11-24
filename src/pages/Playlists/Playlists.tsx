@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 
 const Playlists = () => {
     const { playlistName } = useParams<{ playlistName?: string }>();
-    const genreName = playlistName;
+    const genreName = playlistName ;
     const { searchPlaylists, playlists } = useSearchPlaylistsByGenre();
 
   useEffect(() => {

@@ -53,6 +53,12 @@ const PlaylistDetail = () => {
             </div>
             <div className="col-3 align-items-center py-3">
               <p>{track.track.album.name}</p>
+                {track.track.preview_url &&(<audio controls style={{width:"100%"}}>
+                    <source src={track.track.preview_url} type="audio/mpeg"></source>
+                </audio>)}
+                              {!track.track.preview_url && (
+                <small className="text-muted">Anteprima non disponibile</small>
+              )}
             </div>
             <div className="col-3 text-center py-3">
               <p>{formatDuration(track.track.duration_ms)}</p>

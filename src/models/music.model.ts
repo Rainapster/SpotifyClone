@@ -131,3 +131,16 @@ export interface SpotifyPlaylistTracksResponse {
   previous: string | null;
   total: number;
 }
+
+// Interfaccia per fare la ricerca di un brano
+export interface SpotifyTrackSearchResponse {
+  tracks: {
+    href: string;
+    items: SpotifyTrackItem[];
+    limit: number;
+    next: string | null;
+    offset: number;
+    previous: string | null;
+    total: number;
+  };
+}
