@@ -8,7 +8,9 @@ import {
   type SpotifyPlaylistSearchResponse,
   type SpotifyPlaylistTracksResponse,
   type SpotifyTrackItem,
-  type SpotifyTrackSearchResponse,
+  type SEARCH_TYPE,
+  type SpotifySearchResponse,
+  type SEARCH_TYPES,
 } from "../models/music.model";
 
 //tutte le categorie di musica
@@ -100,28 +102,40 @@ export const usePlaylistTracks = () => {
 };
 
 //hook per ricerca brano
+export const useSearch = () => {
+  const [itemsFound, setItemsFound] = useState<
+    Record<SEARCH_TYPE, SpotifyTrackItem[]>
+  >({
+    track: [],
+    album: [],
+    artist: [],
+    playlist: [],
+  });
 
-export const useSearchTrack = () => {
-  const [tracks, setTracks] = useState<SpotifyTrackItem[]>([]);
-
-  const retriveSearchTracks = useCallback(async (query : string, limit : number = 20) => {
-    try {
-      const token = await getSpotifyToken();
-      const result = await fetch(
-        `https://api.spotify.com/v1/search?q=${encodeURIComponent(
-          query
-        )}&type=track&limit=${limit}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const data : SpotifyTrackSearchResponse = await result.json();
-      setTracks(data.tracks.items)
-    } catch (error) {
-      console.log("errore durante la ricerca della traccia", error);
-    }
-  },[]);
-  return {retriveSearchTracks, tracks}
+  const retriveSearchItems = useCallback(
+    async (query: string, type: SEARCH_TYPE = "track", limit: number = 20) => {
+      try {
+        const token = await getSpotifyToken();
+        const result = await fetch(
+          `https://api.spotify.com/v1/search?q=${encodeURIComponent(
+            query
+          )}&type=${type}&limit=${limit}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const data: Record<SEARCH_TYPES, SpotifySearchResponse> = await result.json();
+        setItemsFound((prev) => ({
+          ...prev,
+          [type]: data?.[`${type}s`]?.items,
+        }));
+      } catch (error) {
+        console.log("errore durante la ricerca della traccia", error);
+      }
+    },
+    []
+  );
+  return { retriveSearchItems, itemsFound };
 };

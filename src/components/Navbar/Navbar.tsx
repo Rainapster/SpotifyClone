@@ -2,10 +2,11 @@
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 // import { useSearchTrack } from "../../hooks/useMusic";
-import { useState } from "react";
+import {  useState } from "react";
+// import { useSearch } from "../../hooks/useMusic";
 
 const Navbar = () => {
-//   const { retriveSearchTracks, tracks } = useSearchTrack();
+//   const { retriveSearchTracks, itemsFound } = useSearch();
   const [searchQuery, setSearchQuery] = useState("")
   const onChangeInput = (event : React.ChangeEvent<HTMLInputElement>) =>{
     const valuerSearched = event.target.value
@@ -16,9 +17,9 @@ const Navbar = () => {
 //     if(searchQuery){
 //         retriveSearchTracks(searchQuery)
 //     }
-//     console.log("brani delle ricerca",tracks)
+//     console.log("risultati ricerca",itemsFound)
 //     console.log("searchquery",searchQuery)
-//   },[retriveSearchTracks, searchQuery, tracks])
+//   },[retriveSearchTracks, searchQuery, itemsFound])
 const navigate = useNavigate();
 
 const handleKeyPress = (event : React.KeyboardEvent<HTMLInputElement>) =>{

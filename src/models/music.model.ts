@@ -132,9 +132,7 @@ export interface SpotifyPlaylistTracksResponse {
   total: number;
 }
 
-// Interfaccia per fare la ricerca di un brano
-export interface SpotifyTrackSearchResponse {
-  tracks: {
+export interface SpotifySearchResponse {
     href: string;
     items: SpotifyTrackItem[];
     limit: number;
@@ -143,4 +141,11 @@ export interface SpotifyTrackSearchResponse {
     previous: string | null;
     total: number;
   };
+
+// Interfaccia per fare la ricerca di un brano
+export interface SpotifyTrackSearchResponse {
+  tracks: SpotifySearchResponse
 }
+
+export type SEARCH_TYPE = "track" | "album" | "artist" | "playlist";
+export type SEARCH_TYPES = "tracks" | "albums" | "artists" | "playlists"
